@@ -3,21 +3,53 @@
 	"http://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<query name="HQL_GET_ALL_EMPLOYEE">from Employee</query>
 
-	<!-- HQL Query -->
-	<query name="HQL_GET_EMPLOYEE_BY_ID">
-		<![CDATA[from Employee where emp_id = :id]]>
+	<query name="ALL_EMPLOYEE_BY_HQL">
+
+		from Employee
+
 	</query>
 
-	<!-- HQL Query -->
-	<query name="EMPLOYEE_BY_SALARY">
-		<![CDATA[from Employee where emp_salary = :salary]]>
-	</query>
 
 	<!-- SQL Query -->
-	<sql-query name="SQL_GET_ALL_EMPLOYEE">
-		<![CDATA[select emp_id, emp_name, emp_salary from Employee]]>
+	<sql-query name="ALL_EMPLOYEE_BY_SQL">
+		<return alias="Employee" class="com.manish.javadev.model.Employee" /> 
+		<![CDATA[
+		
+		select * from Employee
+		
+		]]>
 	</sql-query>
+
+	<!-- HQL Query -->
+	<query name="EMPLOYEE_BY_ID_HQL">
+		<![CDATA[
+		
+		from Employee where emp_id = :id
+		
+		]]>
+	</query>
+
+	<!-- HQL Query -->
+	<query name="EMPLOYEE_BY_SALARY_HQL">
+		<![CDATA[
+		
+		from Employee where emp_salary > :salary
+		
+		]]>
+	</query>
+
+
+	<!-- SQL Query -->
+	<sql-query name="EMPLOYEE_JOIN">
+		<return alias="EmpResult" class="com.manish.javadev.model.ResultEntity" />
+	 <![CDATA[
+			Select emp.Emp_Id,emp.emp_name,emp.emp_salary,addr.city 
+			From Employee emp 
+			INNER JOIN Address addr 
+			ON emp.emp_Id=addr.Emp_Id
+		]]>
+	</sql-query>
+
 
 </hibernate-mapping>
